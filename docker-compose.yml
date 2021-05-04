@@ -1,0 +1,15 @@
+version: "3.5"
+services:
+   pegasus-nersc:
+      image: pegasus/donut-remote-submission:latest
+      container_name: pegasus-donut
+      user: pegasus
+      restart: always
+      volumes:
+         - ./data/.ssh:/home/pegasus/.ssh:rw
+         - ./data/.bosco:/home/pegasus/.bosco:ro
+         - ./data/.bashrc:/home/pegasus/.bashrc:ro
+         - ./data/.pegasus:/home/pegasus/.pegasus:rw
+         - ./data/config:/home/pegasus/config:ro
+         - ./data/helpers:/home/pegasus/helpers:rw
+         - ./data/workflows:/home/pegasus/workflows:rw
