@@ -1,8 +1,8 @@
-# A Docker recipe that runs Pegasus and HTCondor and targets NERSC as the execution site
+# A Docker recipe that runs Pegasus and HTCondor and targets ISI Donut as the execution site
 
-This project prepares a Docker container that can run on your local machine and submit Pegasus workflows **remotely**, using HTCondor BOSCO, to NERSC's computing systems.
+This project prepares a Docker container that can run on your local machine and submit Pegasus workflows **remotely**, using HTCondor BOSCO, to Donut.
 
-The container can be found at https://hub.docker.com/r/pegasus/nersc-remote-submission.
+The container can be found at https://hub.docker.com/r/pegasus/donut-remote-submission.
 
 New versions of the container will be tagged with the version of Pegasus installed in the image (e.g., pegasus/nersc-remote-submission:pegasus-5.0.0).
 
@@ -12,64 +12,65 @@ New versions of the container will be tagged with the version of Pegasus install
 
 **docker-compose.yml** A Docker Compose file to automate the instantiation of the container.
 
-**data/config/nersc.conf** Contains envuironmental variables that are relevant for your account at NERSC.
+**data/config/donut.conf** Contains envuironmental variables that are relevant for your account at Donut.
 
-**data/helpers/initialize-nersc.sh** This script initializes your NERSC home to accept jobs using the HTCondor BOSCO method. It retrieves an SSH key for your account and installs the BOSCO binaries under your account.
+**data/helpers/initialize-donut.sh** This script initializes your Donut home to accept jobs using the HTCondor BOSCO method. It installs Pegasus and installs the BOSCO binaries under your account.
 
-**data/helpers/renew-nersc-key.sh** The retrieved SSH key lasts for a limited time and this script can be used to renew it.
-
-**data/workflows** This fodler contains Pegasus 5.0 workflow examples that can be submitted directly to NERSC. You can use this folder to create your workflows too.
+**data/workflows** This fodler contains Pegasus 5.0 workflow examples that can be submitted directly to Donut. You can use this folder to create your workflows too.
 
 ## Prerequisites
 
 - Install Docker on your local machine (https://docs.docker.com/get-docker/)
 - Install Docker Compose on your local machine (https://docs.docker.com/compose/install/)
 
-Step 1: Update data/config/nersc.conf
+Step 1a: Create a new ssh key for DONUT
+--------------------------------------
+```
+cd data/.ssh
+ssh-keygen -b 4096 -f bosco_key.rsa
+```
+
+Step 1b: If you added a password to the new key
+-----------------------------------------------
+Paste the password in data/.bosco/.pass
+
+Step 1c: Add the public key to the DONUT Cluster
+------------------------------------------------
+Paste a new line with your public key in ${DONUT_USER_HOME}/.ssh/authorized_keys on donut-submit01.
+
+Step 2: Update data/config/donut.conf
 -------------------------------------
-In data/config/nersc.conf update the section "ENV Variables For NERSC" with your information.
+In data/config/nersc.conf update the section "ENV Variables For DONUT" with your information.
 
 More specifically replace:
-- **NERSC\_SSH\_SCOPE**, with the ssh scope specified for your account by the NERSC admins (if any, otherwise leave empty)
-- **NERSC\_PROJECT**, with your project name at NERSC
-- **NERSC\_USER**, with your user name at NERSC
-- **NERSC\_USER\_HOME**, with your user home directory at NERSC
+- **DONUT\_USER**, with your user name at NERSC
+- **DONUT\_USER\_HOME**, with your user home directory at NERSC
 
-Step 2: Start the Docker container
+Step 3: Start the Docker container
 ----------------------------------
 
 ```
 docker-compose up -d
 ```
 
-Step 3: Get an interactive shell to the container
+Step 4: Get an interactive shell to the container
 -------------------------------------------------
 ```
-docker exec -it pegasus-nersc /bin/bash
+docker exec -it pegasus-donut /bin/bash
 ```
 
-Step 4a: Run the initialization script
+Step 4: Run the initialization script
 --------------------------------------
-This is required only once, the first time you bring up the container. This script will ask you to enter your NERSC pass + OTP two times.
-(Hint: Wait for a new OTP the second time)
+This is required only once, the first time you bring up the container, or if you want to update the Pegasus version installed on Donut.
 ```
-/home/pegasus/helpers/initialize-nersc.sh
-```
-
-Step 4b: Renew your NERSC SSH Key
----------------------------------
-This will retrieve a new SSH key for your account. (Hint: Monitor the login messages for the expiration date)
-```
-/home/pegasus/helpers/renew-nersc-key.sh
+/home/pegasus/helpers/initialize-donut.sh
 ```
 
 Step 5: Run a workflow
 ----------------------
 
 ```
-cd /home/pegasus/workflows/sns-namd-example
-./workflow_generator_shifter_remote_staging.py
-./plan.sh workflow.yml
+TODO
 ```
 
 Deleting the Docker container
