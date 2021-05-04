@@ -4,7 +4,7 @@ This project prepares a Docker container that can run on your local machine and 
 
 The container can be found at https://hub.docker.com/r/pegasus/donut-remote-submission.
 
-New versions of the container will be tagged with the version of Pegasus installed in the image (e.g., pegasus/nersc-remote-submission:pegasus-5.0.0).
+New versions of the container will be tagged with the version of Pegasus installed in the image (e.g., pegasus/donut-remote-submission:pegasus-5.0.0).
 
 ## Basic scripts and files
 
@@ -28,6 +28,7 @@ Step 1a: Create a new ssh key for DONUT
 ```
 cd data/.ssh
 ssh-keygen -b 4096 -f bosco_key.rsa
+cd ../../
 ```
 
 Step 1b: If you added a password to the new key
@@ -40,11 +41,11 @@ Paste a new line with your public key in ${DONUT_USER_HOME}/.ssh/authorized_keys
 
 Step 2: Update data/config/donut.conf
 -------------------------------------
-In data/config/nersc.conf update the section "ENV Variables For DONUT" with your information.
+In data/config/donut.conf update the section "ENV Variables For DONUT" with your information.
 
 More specifically replace:
-- **DONUT\_USER**, with your user name at NERSC
-- **DONUT\_USER\_HOME**, with your user home directory at NERSC
+- **DONUT\_USER**, with your user name on DONUT
+- **DONUT\_USER\_HOME**, with your user home directory on DONUT
 
 Step 3: Start the Docker container
 ----------------------------------
