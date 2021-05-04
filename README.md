@@ -28,7 +28,6 @@ Step 1a: Create a new ssh key for DONUT
 ```
 cd data/.ssh
 ssh-keygen -b 4096 -f bosco_key.rsa
-cd ../../
 ```
 
 Step 1b: If you added a password to the new key
