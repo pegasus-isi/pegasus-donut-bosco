@@ -36,7 +36,7 @@ Paste the password in data/.bosco/.pass
 
 Step 1c: Add the public key to the DONUT Cluster
 ------------------------------------------------
-Paste a new line with your public key in ${DONUT\_USER\_HOME}/.ssh/authorized\_keys on donut-submit01.
+Paste a new line with your public key in ~/.ssh/authorized\_keys on donut-submit01.
 
 Step 2: Update data/config/donut.conf
 -------------------------------------
