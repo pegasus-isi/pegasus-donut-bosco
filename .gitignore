@@ -1,4 +1,4 @@
-data/.ssh/bosco_key.rsa
-data/.ssh/bosco_key.rsa.pub
-data/.ssh/known_hosts
-data/.bosco/.pass
+data/config
+data/.ssh
+data/.bosco
+data/.pegasus
