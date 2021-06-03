@@ -2,8 +2,8 @@
 
 This project prepares a Docker container that can run on your local machine and submit Pegasus workflows **remotely**, using HTCondor BOSCO, to Donut.
 
-The container should be built on the host machine so the user account within the container matches your local user id and groupd id.
-This is important for the volume mounting to work properly.
+The container should be built on the host machine so the user account within the container matches your local user id and group id.
+This is important for the volume mounts to work properly.
 
 If you would like to retrieve a default image that doesn't necessarily match the file permissions of your local file system check https://hub.docker.com/r/pegasus/donut-remote-submission.
 New versions of the container will be tagged with the version of Pegasus installed in the image (e.g., pegasus/donut-remote-submission:pegasus-5.0.0).
