@@ -84,7 +84,7 @@ docker exec -it pegasus-donut-LOCAL\_USER /bin/bash
 
 Step 8: Run the initialization script
 --------------------------------------
-This is required only **once**, the first time you bring up the container, or if you want to update the Pegasus version installed on Donut.
+This is **required only once**, the first time you bring up the container, or if you want to update the Pegasus version installed on Donut.
 ```
 /home/pegasus/helpers/initialize-donut.sh
 ```
