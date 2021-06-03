@@ -33,23 +33,23 @@ New versions of the container will be tagged with the version of Pegasus install
 - Install Docker on your local machine (https://docs.docker.com/get-docker/)
 - Install Docker Compose on your local machine (https://docs.docker.com/compose/install/)
 
-Step 1: Update Docker/image.conf
--------------------------------------------
+Step 1: Update Docker/image.conf (HOST)
+---------------------------------------
 Update Docker/image.conf with the version of Pegasus you prefer.
 Currently I suggest using 5.1.0panorama since it contains some changes for GPU submission on Donut.
 
 More specifically replace:
 - **PEGASUS_VERSION_NUM**, with the pegasus version number (e.g., 5.1.0panorama)
 
-Step 2: Build a new docker image using the recipe
--------------------------------------------------
+Step 2: Build a new docker image using the recipe (HOST)
+--------------------------------------------------------
 ```
 cd Docker
 ./docker_build.sh
 ```
 
-Step 3: Create a new ssh key for DONUT
----------------------------------------
+Step 3: Create a new ssh key for DONUT (HOST)
+---------------------------------------------
 Adding a passphrase will require more advanced configuration, not covered in this README.
 
 ```
@@ -57,40 +57,40 @@ cd data/.ssh
 ssh-keygen -b 4096 -f bosco_key.rsa
 ```
 
-Step 4: Add the public key to the DONUT Cluster
-------------------------------------------------
+Step 4: Add the public key to the DONUT Cluster (DONUT)
+-------------------------------------------------------
 Paste a new line with your public key in ~/.ssh/authorized\_keys on donut-submit01.
 
-Step 5: Update data/config/donut.conf
--------------------------------------
+Step 5: Update data/config/donut.conf (HOST)
+--------------------------------------------
 In data/config/donut.conf update the section "ENV Variables For DONUT" with your information.
 
 More specifically replace:
 - **DONUT\_USER**, with your user name on DONUT
 - **DONUT\_USER\_HOME**, with your user home directory on DONUT
 
-Step 6: Start the Docker container
-----------------------------------
+Step 6: Start the Docker container (HOST)
+-----------------------------------------
 
 ```
 ./docker_run.sh
 ```
 
-Step 7: Get an interactive shell to the container
--------------------------------------------------
+Step 7: Get an interactive shell to the container (HOST)
+--------------------------------------------------------
 ```
 docker exec -it pegasus-donut-LOCAL_USER /bin/bash
 ```
 
-Step 8: Run the initialization script
---------------------------------------
+Step 8: Run the initialization script (CONTAINER)
+-------------------------------------------------
 This is **required only once**, the first time you bring up the container, or if you want to update the Pegasus version installed on Donut.
 ```
 /home/pegasus/helpers/initialize-donut.sh
 ```
 
-Step 9: Run a workflow
-----------------------
+Step 9: Run a workflow (CONTAINER)
+----------------------------------
 
 ```
 cd /home/pegasus/workflows/diamond-workflow
@@ -98,8 +98,8 @@ cd /home/pegasus/workflows/diamond-workflow
 ./plan.sh workflow.yml
 ```
 
-Deleting the Docker container
------------------------------
+Deleting the Docker container (HOST)
+------------------------------------
 
 ```
 ./docker_stop.sh
