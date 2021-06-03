@@ -79,7 +79,7 @@ Step 6: Start the Docker container
 Step 7: Get an interactive shell to the container
 -------------------------------------------------
 ```
-docker exec -it pegasus-donut-LOCAL\_USER /bin/bash
+docker exec -it pegasus-donut-LOCAL_USER /bin/bash
 ```
 
 Step 8: Run the initialization script
