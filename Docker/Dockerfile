@@ -1,8 +1,12 @@
 FROM centos:centos7
 
+ARG PEGASUS_UID=4242
+ARG PEGASUS_GID=4242
+ARG PEGASUS_VERSION_NUM="5.1.0panorama"
+
 #### ENV Variables For Packages ####
-ENV PEGASUS_VERSION "pegasus-5.0.0"
-ENV PEGASUS_VERSION_NUM "5.0.0"
+ENV PEGASUS_VERSION "pegasus-${PEGASUS_VERSION_NUM}"
+ENV PEGASUS_VERSION_NUM ${PEGASUS_VERSION_NUM}
 ENV BOSCO_VERSION_NUM "1.2.12"
 
 #### Update Packages ####
@@ -11,11 +15,12 @@ RUN yum -y update
 #### Install basic packages ####
 RUN yum -y install which java-1.8.0-openjdk-devel openssl-devel sudo mysql-devel postgresql-devel epel-release vim git python python3 openssh-clients libgomp rsync perl perl-Data-Dumper
 
-RUN python3 -m pip install --upgrade pip && pip3 install pyyaml gitpython numpy torch
+RUN python3 -m pip install --upgrade pip && pip3 install pyyaml gitpython
+#RUN pip3 install numpy torch
 
 #### Add pegasus user and vim config ####
 COPY vim.tar.gz /opt/vim.tar.gz
-RUN useradd -s /bin/bash/ -m pegasus && \
+RUN groupadd -g ${PEGASUS_GID} pegasus && useradd -g pegasus -u ${PEGASUS_UID} -s /bin/bash/ -m pegasus && \
     tar -C /home/pegasus -xzvf /opt/vim.tar.gz && \
     rm /opt/vim.tar.gz && \
     chown -R pegasus:pegasus /home/pegasus

@@ -1,8 +1,8 @@
 version: "3.5"
 services:
-   pegasus-nersc:
-      image: pegasus/donut-remote-submission:latest
-      container_name: pegasus-donut
+   pegasus-donut:
+      image: "${LOCAL_USER}/donut-remote-submission:pegasus-${PEGASUS_VERSION_NUM}"
+      container_name: "pegasus-donut-${LOCAL_USER}"
       user: pegasus
       restart: always
       volumes:
