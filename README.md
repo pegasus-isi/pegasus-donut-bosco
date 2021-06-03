@@ -39,7 +39,7 @@ Update Docker/image.conf with the version of Pegasus you prefer.
 Currently I suggest using 5.1.0panorama since it contains some changes for GPU submission on Donut.
 
 More specifically replace:
-- **PEGASUS_VERSION_NUM**, with the pegasus version number (e.g., 5.1.0.panorama)
+- **PEGASUS_VERSION_NUM**, with the pegasus version number (e.g., 5.1.0panorama)
 
 Step 2: Build a new docker image using the recipe
 -------------------------------------------------
