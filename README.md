@@ -61,6 +61,15 @@ Step 4: Add the public key to the DONUT Cluster (DONUT)
 -------------------------------------------------------
 Paste a new line with your public key in ~/.ssh/authorized\_keys on donut-submit01.
 
+Note that if your home directory is at `/nas/home/<user>`, and you have a `bashrc` file
+with commands specific to a host other than Donut, you will need to update your `bashrc`
+with the following:
+```
+if  [[ "$HOSTNAME" != "donut-submit01" ]]; then
+    # commands that won't work on donut
+fi
+```
+
 Step 5: Update data/config/donut.conf (HOST)
 --------------------------------------------
 In data/config/donut.conf update the section "ENV Variables For DONUT" with your information.
